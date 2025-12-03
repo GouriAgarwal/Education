@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova: Educational Technology Blog</title>
+    <!-- We'll keep the Inter font for a professional, clean look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Simple, Clean, Modern Internal CSS -->
+    <style>
+        /* Define a subtle color palette for a professional look */
+        :root {
+            --primary-blue: #3b82f6; /* Modern Blue */
+            --secondary-orange: #f59e0b; /* Warm Accent */
+            --text-color: #1f2937;
+            --light-bg: #f9fafb;
+            --card-bg: white;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg); 
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header and Navigation Styling */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            cursor: pointer;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Button Styling */
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+            font-size: 14px;
+        }
+        .primary-button {
+            background-color: var(--secondary-orange); 
+            color: var(--text-color); 
+        }
+        .primary-button:hover {
+            background-color: #fbbd23;
+            transform: translateY(-1px);
+        }
+
+        /* Blog Post Card Styling */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .post-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .post-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-content {
+            padding: 20px;
+        }
+        .card-category {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+        }
+        .card-meta {
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Article View Styling */
+        .article-view {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .article-view h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-top: 0;
+        }
+        .article-meta {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .article-meta span {
+            margin-right: 15px;
+        }
+        .article-meta strong {
+            color: var(--text-color);
+        }
+        .article-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Tags and Categories Sidebar */
+        .sidebar {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+        .sidebar h3 {
+            font-size: 18px;
+            color: var(--primary-blue);
+            border-bottom: 2px solid #e0f2fe;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .tag-list button {
+            background-color: #e0f2fe;
+            color: var(--primary-blue);
+            margin-right: 5px;
+            margin-bottom: 8px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #bfdbfe;
+            cursor: pointer;
+        }
+        .tag-list button:hover {
+            background-color: #bfdbfe;
+        }
+        .category-list button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 8px 10px;
+            background: none;
+            border-bottom: 1px solid #f3f4f6;
+            color: var(--text-color);
+        }
+        .category-list button:hover {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+
+        /* Commenting System Styling */
+        .comments-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .comment-item {
+            border: 1px solid #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #fcfcfc;
+        }
+        .comment-header {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .comment-date {
+            font-weight: 400;
+            color: #9ca3af;
+        }
+        .comment-form input[type="text"], 
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        .comment-form textarea {
+            resize: vertical;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            .header-content {
+                padding: 0 10px;
+            }
+            .post-grid {
+                grid-template-columns: 1fr;
+            }
+            .article-view {
+                padding: 20px;
+            }
+            .article-view h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <!-- Navigate to home (product list) on click -->
+            <h1 onclick="navigate('home')">TechNova Blog</h1>
+            <div id="filter-status"></div>
+        </div>
+    </header>
+
+    <div class="container" id="app">
+        
+        <div id="content" style="display: flex; gap: 30px;">
+            <!-- Main Content Area -->
+            <main id="main-content" style="flex: 3;">
+                <p>Loading blog content...</p>
+            </main>
+            
+            <!-- Sidebar for Filters -->
+            <aside id="sidebar-content" style="flex: 1; min-width: 250px;"></aside>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Global State Variables (In-memory state for simplicity)
+        window.currentView = 'home';
+        window.filter = { type: null, value: null };
+        window.activePostId = null;
+
+        // --- Mock Blog Data ---
+        const initialPosts = [
+            {
+                id: '1',
+                title: 'The Blueprint of Digital India: 5G and Beyond',
+                author: 'Priya Sharma',
+                date: 'Nov 1, 2025',
+                category: 'Connectivity',
+                tags: ['5G', 'Infrastructure', 'Telecom'],
+                image: 'https://placehold.co/800x400/3b82f6/ffffff?text=5G+Towers',
+                content: `
+                    <p>India is on the cusp of a major digital transformation, spearheaded by the widespread rollout of 5G technology. This isn't just about faster download speeds; it's about building the foundational infrastructure for smart cities, remote healthcare, and advanced manufacturing. The current deployment aims for national coverage within the next two years, pushing network boundaries further than ever.</p>
+                    <p>Beyond 5G, research is already focused on 6G and next-generation satellite internet, ensuring that connectivity remains uninterrupted even in the most remote villages. The vision is to ensure every citizen has access to high-speed internet, which is now considered a basic utility for education and financial inclusion.</p>
+                    <p>However, challenges remain, particularly around spectrum allocation and affordability. Balancing the high costs of deployment with the need for low-cost services for the masses is the next major hurdle for telecom giants and government regulators alike.</p>
+                `,
+                comments: [
+                    { name: 'Rohan Gupta', date: 'Nov 2, 2025', text: 'Excellent analysis! I’m excited about how this will impact ed-tech in tier 2 cities.' }
+                ]
+            },
+            {
+                id: '2',
+                title: 'Understanding Web 3.0: The Decentralized Future',
+                author: 'Amit Singh',
+                date: 'Oct 25, 2025',
+                category: 'Blockchain',
+                tags: ['Web3', 'Blockchain', 'Crypto', 'Decentralization'],
+                image: 'https://placehold.co/800x400/f59e0b/1f2937?text=Web3+Concept',
+                content: `
+                    <p>Web 3.0 represents the next iteration of the internet, characterized by decentralization and built primarily on blockchain technology. Unlike Web 2.0, where major corporations control data and platforms, Web 3.0 aims to return ownership and control to the individual user. This is done through concepts like Non-Fungible Tokens (NFTs) and Decentralized Autonomous Organizations (DAOs).</p>
+                    <p>For beginners, the key difference to grasp is the shift from "renting" services to "owning" a piece of the internet. For instance, in a Web 3.0 social network, you might own your identity and even the data you generate.</p>
+                    <p>While still in its infancy, the potential of Web 3.0 to disrupt finance, gaming, and digital identity is immense. We must, however, remain cautious about regulatory frameworks and the learning curve involved in adopting these new tools.</p>
+                `,
+                comments: [
+                    { name: 'Kavita Iyer', date: 'Oct 26, 2025', text: 'I found the DAO concept particularly confusing. A dedicated article on DAOs would be helpful!' },
+                    { name: 'Sanjay Dutt', date: 'Oct 27, 2025', text: 'Great breakdown, Amit! Regulatory clarity is definitely key for mass adoption in India.' }
+                ]
+            },
+             {
+                id: '3',
+                title: 'Data Science for Beginners: Your First Steps',
+                author: 'Priya Sharma',
+                date: 'Oct 15, 2025',
+                category: 'Data Science',
+                tags: ['Learning', 'Coding', 'Analytics'],
+                image: 'https://placehold.co/800x400/10b981/ffffff?text=Data+Science+Code',
+                content: `
+                    <p>Data Science is the process of extracting knowledge and insights from structured and unstructured data. It combines elements of programming, statistics, and domain knowledge. For anyone starting out, the journey should begin with mastering Python or R, alongside foundational concepts in linear algebra and calculus.</p>
+                    <p>The first practical step is to work on small, clean datasets. Kaggle is an excellent platform for finding beginner-friendly projects. Focus less on complex algorithms initially, and more on cleaning, visualizing, and understanding the data story.</p>
+                    <p>Remember, the goal of a data scientist is not just to build models, but to communicate the findings effectively to non-technical stakeholders. Storytelling with data is just as important as the code itself.</p>
+                `,
+                comments: []
+            }
+        ];
+        
+        // This array will hold the live posts, including dynamically added comments
+        window.posts = [...initialPosts];
+
+
+        // --- Utility Functions ---
+
+        /**
+         * Finds a post by ID.
+         */
+        const getPostById = (id) => window.posts.find(p => p.id === id);
+
+        /**
+         * Formats the date string for display.
+         */
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-IN', options);
+        };
+
+
+        // --- Navigation and State Management ---
+
+        /**
+         * Changes the current application view and optional filter.
+         */
+        const navigate = (view, postId = null, filterType = null, filterValue = null) => {
+            window.currentView = view;
+            window.activePostId = postId;
+            
+            // Set filter for the home view
+            if (view === 'home' && (filterType && filterValue)) {
+                window.filter = { type: filterType, value: filterValue };
+            } else if (view === 'home') {
+                 window.filter = { type: null, value: null };
+            }
+
+            window.renderApp();
+            window.scrollTo(0, 0); 
+        };
+        
+        /**
+         * Adds a new comment to the active post (in memory).
+         */
+        const addComment = (postId) => {
+            const nameInput = document.getElementById('comment-name');
+            const commentInput = document.getElementById('comment-text');
+
+            if (!nameInput.value.trim() || !commentInput.value.trim()) {
+                // Simple feedback for beginner focus
+                alert('Please enter both your name and a comment before submitting.'); 
+                return;
+            }
+
+            const post = getPostById(postId);
+            if (post) {
+                const newComment = {
+                    name: nameInput.value.trim(),
+                    text: commentInput.value.trim(),
+                    date: formatDate(new Date().toISOString()),
+                };
+                post.comments.push(newComment);
+
+                // Clear form inputs
+                nameInput.value = '';
+                commentInput.value = '';
+
+                // Re-render the article view to display the new comment
+                window.renderApp();
+            }
+        };
+
+
+        /**
+         * Main render function that updates the UI based on state.
+         */
+        window.renderApp = () => {
+            const mainContentDiv = document.getElementById('main-content');
+            const sidebarContentDiv = document.getElementById('sidebar-content');
+            const filterStatusDiv = document.getElementById('filter-status');
+            
+            let html = '';
+            let sidebarHTML = '';
+
+            // Render based on the current view
+            if (window.currentView === 'home') {
+                sidebarHTML = renderSidebar();
+                html = renderHomeView();
+            } else if (window.currentView === 'article' && window.activePostId) {
+                sidebarHTML = renderSidebar(); // Sidebar remains for navigation/filtering
+                html = renderArticleView(window.activePostId);
+            }
+
+            mainContentDiv.innerHTML = html;
+            sidebarContentDiv.innerHTML = sidebarHTML;
+            
+            // Update filter status display in the header
+            if (window.filter.type) {
+                filterStatusDiv.innerHTML = `
+                    <button class="button" onclick="navigate('home')" style="background-color: white; color: var(--primary-blue); font-size: 14px;">
+                        Filter: ${window.filter.value} (X Clear)
+                    </button>
+                `;
+            } else {
+                filterStatusDiv.innerHTML = '';
+            }
+        };
+
+
+        // --- View Generators ---
+
+        /**
+         * Renders the main blog index view with post cards.
+         */
+        function renderHomeView() {
+            const { type, value } = window.filter;
+            
+            let filteredPosts = window.posts;
+
+            if (type === 'category') {
+                filteredPosts = window.posts.filter(p => p.category === value);
+            } else if (type === 'tag') {
+                filteredPosts = window.posts.filter(p => p.tags.includes(value));
+            }
+            
+            const cards = filteredPosts.map(p => `
+                <div class="post-card" onclick="navigate('article', '${p.id}')">
+                    <img src="${p.image}" alt="${p.title} Image" loading="lazy">
+                    <div class="card-content">
+                        <div class="card-category">${p.category}</div>
+                        <h2 class="card-title">${p.title}</h2>
+                        <div class="card-meta">
+                            By <strong>${p.author}</strong> on ${formatDate(p.date)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            return `
+                <h2 style="font-size: 24px; font-weight: 600; color: var(--text-color); margin-bottom: 5px;">
+                    ${type ? `Articles tagged with: "${value}"` : 'Latest Tech Insights'}
+                </h2>
+                <p style="color: #6b7280; margin-bottom: 20px;">Explore the rapidly changing world of technology.</p>
+                <div class="post-grid">
+                    ${filteredPosts.length > 0 ? cards : '<p style="padding: 20px; text-align: center;">No articles match this filter.</p>'}
+                </div>
+            `;
+        }
+        
+        /**
+         * Renders the single article view.
+         */
+        function renderArticleView(postId) {
+            const post = getPostById(postId);
+            if (!post) return `<div style="padding: 50px; text-align: center;">Article not found.</div>`;
+
+            // Render tags
+            const tagsHTML = post.tags.map(tag => 
+                `<button onclick="navigate('home', null, 'tag', '${tag}')" class="button" style="background-color: #e0f2fe; color: var(--primary-blue); margin-right: 5px; margin-bottom: 5px;">#${tag}</button>`
+            ).join('');
+
+            return `
+                <div class="article-view">
+                    <button onclick="navigate('home')" class="button primary-button" style="margin-bottom: 20px;">
+                        &larr; Back to All Articles
+                    </button>
+
+                    <h2 style="color: var(--text-color);">${post.title}</h2>
+                    <div class="article-meta">
+                        <span>Category: <strong>${post.category}</strong></span> 
+                        <span>Author: <strong>${post.author}</strong></span>
+                        <span>Published: ${formatDate(post.date)}</span>
+                    </div>
+
+                    <img src="${post.image}" alt="${post.title}" class="article-image">
+
+                    <div class="article-content">
+                        ${post.content}
+                    </div>
+
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #ccc;">
+                        <strong>Tags:</strong> ${tagsHTML}
+                    </div>
+
+                    ${renderCommentsSection(post)}
+                </div>
+            `;
+        }
+
+        /**
+         * Renders the comments section for an article.
+         */
+        function renderCommentsSection(post) {
+            const commentsList = post.comments.map(c => `
+                <div class="comment-item">
+                    <div class="comment-header">
+                        <span>${c.name}</span>
+                        <span class="comment-date">${formatDate(c.date)}</span>
+                    </div>
+                    <p style="margin: 0;">${c.text}</p>
+                </div>
+            `).join('');
+
+            return `
+                <div class="comments-section">
+                    <h3 style="color: var(--secondary-orange); font-size: 22px; margin-bottom: 15px;">Comments (${post.comments.length})</h3>
+                    
+                    <div id="comments-list">
+                        ${commentsList}
+                    </div>
+
+                    <h4 style="font-size: 18px; margin-top: 30px;">Leave a Comment</h4>
+                    <div class="comment-form">
+                        <input type="text" id="comment-name" placeholder="Your Name (e.g., Sunil Varma)" required>
+                        <textarea id="comment-text" placeholder="Your comment..." rows="4" required></textarea>
+                        <button onclick="addComment('${post.id}')" class="button primary-button">
+                            Post Comment
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /**
+         * Renders the sidebar with Categories and Tags.
+         */
+        function renderSidebar() {
+            // Get unique categories and tags
+            const categories = [...new Set(window.posts.map(p => p.category))];
+            const allTags = window.posts.flatMap(p => p.tags);
+            const uniqueTags = [...new Set(allTags)].sort();
+
+            const categoryList = categories.map(cat => 
+                `<button class="button" onclick="navigate('home', null, 'category', '${cat}')">${cat}</button>`
+            ).join('');
+
+            const tagList = uniqueTags.map(tag => 
+                `<button class="button" onclick="navigate('home', null, 'tag', '${tag}')">${tag}</button>`
+            ).join('');
+
+            return `
+                <div class="sidebar">
+                    <h3>Categories</h3>
+                    <div class="category-list">
+                        ${categoryList}
+                        <button class="button" onclick="navigate('home')">All Categories</button>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <h3>Popular Tags</h3>
+                    <div class="tag-list">
+                        ${tagList}
+                    </div>
+                </div>
+            `;
+        }
+
+
+        // Initial render call when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+             window.renderApp();
+        });
+
+    </script>
+</body>
+</html>
